@@ -67,17 +67,17 @@ post <- extract(fit)
 spread_draws(fit, p_sigma[lake_n]) %>% 
   left_join(data.frame(lake_n = 1:3, lake = unique(age_data$lake))) %>% 
   ggplot(aes(x = lake, y = p_sigma))+
-  stat_pointinterval(.width = c(0.05, 0.8, 0.95))
+  stat_pointinterval(.width = c(0.5, 0.8, 0.95))
 
 spread_draws(fit, mu[lake_n]) %>% 
   left_join(data.frame(lake_n = 1:3, lake = unique(age_data$lake))) %>% 
   ggplot(aes(x = lake, y = plogis(mu)))+
-  stat_pointinterval(.width = c(0.05, 0.8, 0.95))
+  stat_pointinterval(.width = c(0.5, 0.8, 0.95))
 
 spread_draws(fit, p[obs]) %>% 
   left_join(age_data %>% mutate(obs = 1:n())) %>% 
   ggplot(aes(x = n, y = p))+
-  stat_pointinterval(.width = c(0.05, 0.8, 0.95))+
+  stat_pointinterval(.width = c(0.5, 0.8, 0.95))+
   geom_point(data = age_data_filtered, aes(y = age1_pct), color = "red")+
   scale_x_log10()+
   facet_wrap(~lake)+
@@ -88,7 +88,7 @@ spread_draws(fit, p[obs]) %>%
 spread_draws(fit, p[obs]) %>% 
   left_join(age_data %>% mutate(obs = 1:n())) %>% 
   ggplot(aes(x = smolt_year, y = p))+
-  stat_pointinterval(.width = c(0.05, 0.8, 0.95), aes(color = !is.na(n)))+
+  stat_pointinterval(.width = c(0.5, 0.8, 0.95), aes(color = !is.na(n)))+
   scale_color_manual(values = c("grey30", "grey60"), "samples")+
   geom_point(data = age_data_filtered, aes(y = age1_pct), color = "red")+
   facet_wrap(~lake)+
