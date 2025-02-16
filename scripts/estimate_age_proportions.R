@@ -65,12 +65,12 @@ pairs(fit, pars = c("mu[2]", "p_z[89]", "p_z[90]", "p_z[91]"))
 post <- extract(fit)
 
 spread_draws(fit, p_sigma[lake_n]) %>% 
-  left_join(data.frame(lake_n = 1:3, lake = unique(age_data$lake))) %>% 
+  left_join(data.frame(lake_n = 1:3, lake = levels(factor(age_data$lake)))) %>% 
   ggplot(aes(x = lake, y = p_sigma))+
   stat_pointinterval(.width = c(0.5, 0.8, 0.95))
 
 spread_draws(fit, mu[lake_n]) %>% 
-  left_join(data.frame(lake_n = 1:3, lake = unique(age_data$lake))) %>% 
+  left_join(data.frame(lake_n = 1:3, lake = levels(factor(age_data$lake)))) %>% 
   ggplot(aes(x = lake, y = plogis(mu)))+
   stat_pointinterval(.width = c(0.5, 0.8, 0.95))
 

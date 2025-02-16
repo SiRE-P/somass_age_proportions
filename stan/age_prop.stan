@@ -23,7 +23,7 @@ model {
   for(i in 1:L){
   mu[i] ~ normal(mu_prior[i], 0.3);
   }
-  p_sigma ~ gamma(3, 3);
+  p_sigma ~ gamma(3, 8);
   p_z ~ normal(0, 1);
   for (i in 1:N) {
     if(observed[i] == 1){
